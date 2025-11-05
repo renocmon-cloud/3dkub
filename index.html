@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Shoe Store</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at center, #111, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .scene {
+    width: 360px;
+    height: 360px;
+    perspective: 1000px;
+    position: relative;
+  }
+
+  .cube {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: spin 10s infinite linear;
+    transition: transform 1s ease-out;
+  }
+
+  .face {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: box-shadow 0.4s, transform 0.4s ease-out;
+  }
+
+  .face-front  { transform: translateZ(150px); }
+  .face-back   { transform: rotateY(180deg) translateZ(150px); }
+  .face-right  { transform: rotateY(90deg) translateZ(150px); }
+  .face-left   { transform: rotateY(-90deg) translateZ(150px); }
+  .face-top    { transform: rotateX(90deg) translateZ(150px); }
+  .face-bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+  @keyframes spin {
+    from { transform: rotateX(0deg) rotateY(0deg); }
+    to   { transform: rotateX(360deg) rotateY(360deg); }
+  }
+
+  .scene:hover .face:hover {
+    box-shadow: 0 0 40px rgba(255,255,255,0.4);
+  }
+
+  .scene:hover .cube {
+    animation-play-state: paused;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+  <div class="scene">
+    <div class="cube">
+      <a href="shoe1.html" class="face face-front"  style="background-image:url('images/img1.jpg')"></a>
+      <a href="shoe2.html" class="face face-back"   style="background-image:url('images/img2.jpg')"></a>
+      <a href="shoe3.html" class="face face-right"  style="background-image:url('images/img3.jpg')"></a>
+      <a href="shoe4.html" class="face face-left"   style="background-image:url('images/img4.jpg')"></a>
+      <a href="shoe5.html" class="face face-top"    style="background-image:url('images/img5.jpg')"></a>
+      <a href="shoe6.html" class="face face-bottom" style="background-image:url('images/img6.jpg')"></a>
+    </div>
+  </div>
+
+<script>
+  const cube = document.querySelector('.cube');
+  const scene = document.querySelector('.scene');
+  let isPaused = false;
+
+  scene.addEventListener('touchstart', () => {
+    isPaused = !isPaused;
+    cube.style.animationPlayState = isPaused ? 'paused' : 'running';
+  });
+</script>
+
+</body>
+</html>
